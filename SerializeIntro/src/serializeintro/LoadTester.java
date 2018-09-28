@@ -21,11 +21,11 @@ public class LoadTester {
        
            try {
                SchuelerBL bl = new SchuelerBL();
-               bl.load(new File("./klasse.csv"));
-               System.out.println(bl.getSize());
+               bl.load(new File("./klasse.bin"));
+               bl.print();
                
            } catch (Exception ex) {
-               Logger.getLogger(LoadTester.class.getName()).log(Level.SEVERE, null, ex);
+               ex.printStackTrace();
            }
         
         

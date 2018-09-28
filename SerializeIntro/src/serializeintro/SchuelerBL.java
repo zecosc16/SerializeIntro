@@ -7,11 +7,14 @@ package serializeintro;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.EOFException;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.time.LocalDate;
@@ -41,27 +44,40 @@ public class SchuelerBL extends AbstractListModel{
     }
     
     public void save(File f) throws Exception{
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f))) {
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f)); 
             for (Schueler s : schueler) {
                 oos.writeObject(s);
             }
             
             oos.flush();
             oos.close();
-        }
+        
         
     }
     
     public void load(File f) throws Exception{
-        BufferedReader br = new BufferedReader(new FileReader(f));
-        String line="";
-        
-        while ((line=br.readLine())!=null){
-            String[] w=line.split(";");
-            schueler.add(new Schueler(w[0],LocalDate.parse(w[1])));
+        ObjectInputStream ois = null;
+        try {
+            ois = new ObjectInputStream(new FileInputStream(f));
+            Object obj;
+            while ((obj = ois.readObject()) != null) {
+                
+                if (obj instanceof Schueler) {
+                    schueler.add((Schueler) obj);
+                }
+            }
+        } catch (EOFException ex) {
+       
         }
         
+        ois.close();
         fireContentsChanged(this, 0, schueler.size()-1);
+    }
+    
+    public void print(){
+        for (Schueler s : schueler) {
+            System.out.println(s.getName()+" "+s.getBirthday());
+        }
     }
     
         
