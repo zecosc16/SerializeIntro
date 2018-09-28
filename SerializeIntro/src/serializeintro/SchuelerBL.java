@@ -8,8 +8,12 @@ package serializeintro;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.AbstractListModel;
@@ -37,16 +41,13 @@ public class SchuelerBL extends AbstractListModel{
     }
     
     public void save(File f) throws Exception{
-        BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-        for (Schueler s : schueler) {
-            bw.write(s.getName());
-            bw.write(";");
-            bw.write(s.getBirthday().toString());
-            bw.newLine();
+      ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f));
+        for (Schueler schueler1 : schueler) {
+            oos.writeObject(oos);
         }
         
-        bw.flush();
-        bw.close();
+        oos.flush();
+        oos.close();
         
     }
     
@@ -61,7 +62,9 @@ public class SchuelerBL extends AbstractListModel{
         
         fireContentsChanged(this, 0, schueler.size()-1);
     }
-
+    
+        
+ 
     
     
 }
