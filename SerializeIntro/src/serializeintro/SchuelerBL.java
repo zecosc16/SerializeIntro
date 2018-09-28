@@ -41,13 +41,14 @@ public class SchuelerBL extends AbstractListModel{
     }
     
     public void save(File f) throws Exception{
-      ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f));
-        for (Schueler schueler1 : schueler) {
-            oos.writeObject(oos);
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f))) {
+            for (Schueler s : schueler) {
+                oos.writeObject(s);
+            }
+            
+            oos.flush();
+            oos.close();
         }
-        
-        oos.flush();
-        oos.close();
         
     }
     

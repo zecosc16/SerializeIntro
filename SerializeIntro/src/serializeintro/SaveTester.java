@@ -22,7 +22,7 @@ public class SaveTester {
         bl.add(s2);
         
         try{
-            bl.save(new File("./klasse.csv"));
+            bl.save(new File("./klasse.bin"));
         }
         catch(Exception ex){
             ex.printStackTrace();

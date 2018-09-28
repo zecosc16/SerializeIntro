@@ -5,13 +5,14 @@
  */
 package serializeintro;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  *
  * @author oskar
  */
-public class Schueler {
+public class Schueler implements Serializable{
     
     private String name;
     private LocalDate birthday;
