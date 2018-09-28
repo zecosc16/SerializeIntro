@@ -28,7 +28,7 @@ public class Schueler {
         this.name = name;
         this.birthday = birthday;
     }
-
+    
     
     
 }

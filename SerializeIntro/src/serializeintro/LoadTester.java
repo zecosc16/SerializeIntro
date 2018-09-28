@@ -23,9 +23,9 @@ public class LoadTester {
                SchuelerBL bl = new SchuelerBL();
                bl.load(new File("./klasse.csv"));
                System.out.println(bl.getSize());
-               
+               bl.print();
            } catch (Exception ex) {
-               Logger.getLogger(LoadTester.class.getName()).log(Level.SEVERE, null, ex);
+               ex.printStackTrace();
            }
         
         

@@ -61,7 +61,12 @@ public class SchuelerBL extends AbstractListModel{
         
         fireContentsChanged(this, 0, schueler.size()-1);
     }
-
+    
+    public void print(){
+        for (Schueler schueler1 : schueler) {
+            System.out.println(schueler1.getName()+" "+schueler1.getBirthday());
+        }
+    }
     
     
 }
