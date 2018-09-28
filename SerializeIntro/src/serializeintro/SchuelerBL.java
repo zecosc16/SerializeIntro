@@ -5,9 +5,12 @@
  */
 package serializeintro;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.AbstractListModel;
 
@@ -39,10 +42,24 @@ public class SchuelerBL extends AbstractListModel{
             bw.write(s.getName());
             bw.write(";");
             bw.write(s.getBirthday().toString());
+            bw.newLine();
         }
         
         bw.flush();
         bw.close();
+        
+    }
+    
+    public void load(File f) throws Exception{
+        BufferedReader br = new BufferedReader(new FileReader(f));
+        String line="";
+        
+        while ((line=br.readLine())!=null){
+            String[] w=line.split(";");
+            schueler.add(new Schueler(w[0],LocalDate.parse(w[1])));
+        }
+        
+        fireContentsChanged(this, 0, schueler.size()-1);
     }
 
     
